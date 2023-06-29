@@ -47,28 +47,28 @@ main() {
     mv .git/hooks/commit-msg .git/hooks/commit-msg.bak.${time};
   fi
 
-  curl https://raw.githubusercontent.com/ShaneStevenLei/git-hooks/main/git-commit-msg -o .git/hooks/commit-msg
+  curl https://raw.githubusercontent.com/ShaneStevenLei/git-hooks/main/commit-msg -o .git/hooks/commit-msg
   chmod +x .git/hooks/commit-msg
-    _green "commit-msg hook Install Success!"
+  _green "commit-msg hook Install Success!\n"
 
-  isGolangProgram = false
-  while 1; do
+  isGolangProgram=0
+  while true; do
     read -p "Is golang program? (y/N)" readIsGolangProgram
-    case ${isGolangProgram} in
+    case ${readIsGolangProgram} in
       'Y'|'y')
-        isGolangProgram = true
+        isGolangProgram=1
         break;;
-      'N'|'n')
-        isGolangProgram = false
+      'N'|'n'|'')
+        isGolangProgram=0
         break;;
       *);;
     esac
   done
 
-  if [[ ${isGolangProgram} ]]; then
+  if [[ ${isGolangProgram} -eq 1 ]]; then
     curl https://raw.githubusercontent.com/ShaneStevenLei/git-hooks/main/pre-commit-golang -o .git/hooks/pre-commit
     chmod +x .git/hooks/pre-commit
-    _green "golang pre-commit hook Install Success!"
+    _green "golang pre-commit hook Install Success!\n"
   fi
 }
 
