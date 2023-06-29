@@ -28,7 +28,7 @@ _exists() {
 }
 
 main() {
-  time=`$(date +%Y%m%d%H%M%S)`
+  time="$(date +%Y%m%d%H%M%S)"
   if [ "$(uname -s)" != "Darwin" ]; then
     _red "Unsupported operating system, Darwin?";
     return 1;
