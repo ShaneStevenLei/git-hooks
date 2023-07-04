@@ -46,7 +46,7 @@ main() {
     fi
   done
 
-  if [ -f .git/hooks/commit-msg ]; then
+  if [ -f "${gitRepositoryPath}/.git/hooks/commit-msg" ]; then
     mv ${gitRepositoryPath}/.git/hooks/commit-msg ${gitRepositoryPath}/.git/hooks/commit-msg.bak.${time};
   fi
 
@@ -69,7 +69,7 @@ main() {
   done
 
   if [[ ${isGolangProgram} -eq 1 ]]; then
-    if [ -f .git/hooks/pre-commit ]; then
+    if [ -f "${gitRepositoryPath}/.git/hooks/pre-commit" ]; then
       mv ${gitRepositoryPath}/.git/hooks/pre-commit ${gitRepositoryPath}/.git/hooks/pre-commit.bak.${time};
     fi
     cp -r pre-commit-golang ${gitRepositoryPath}/.git/hooks/pre-commit
