@@ -34,21 +34,24 @@ main() {
     return 1;
   fi
 
-  if [ ! -d ".git" ]; then 
-    _red "Dir .git not find, Please git init first?";
-    return 1;
-  fi
-
-  if [ -f .git/hooks/pre-commit ]; then
-    mv .git/hooks/pre-commit .git/hooks/pre-commit.bak.${time};
-  fi
+  gitRepositoryPath=""
+  while true; do
+    read -p "Input git repository path: " gitRepositoryPath
+    if [ ! -d ${gitRepositoryPath} ]; then
+      _red "Git repository path not found!"
+    elif [ ! -d "${gitRepositoryPath}/.git" ]; then 
+      _red "Dir .git not find, Please git init first?"
+    else
+      break
+    fi
+  done
 
   if [ -f .git/hooks/commit-msg ]; then
-    mv .git/hooks/commit-msg .git/hooks/commit-msg.bak.${time};
+    mv ${gitRepositoryPath}/.git/hooks/commit-msg ${gitRepositoryPath}/.git/hooks/commit-msg.bak.${time};
   fi
 
-  cp -r commit-msg .git/hooks/commit-msg
-  chmod +x .git/hooks/commit-msg
+  cp -r commit-msg ${gitRepositoryPath}/.git/hooks/commit-msg
+  chmod +x ${gitRepositoryPath}/.git/hooks/commit-msg
   _green "commit-msg hook Install Success!\n"
 
   isGolangProgram=0
@@ -66,8 +69,11 @@ main() {
   done
 
   if [[ ${isGolangProgram} -eq 1 ]]; then
-    cp -r pre-commit-golang .git/hooks/pre-commit
-    chmod +x .git/hooks/pre-commit
+    if [ -f .git/hooks/pre-commit ]; then
+      mv ${gitRepositoryPath}/.git/hooks/pre-commit ${gitRepositoryPath}/.git/hooks/pre-commit.bak.${time};
+    fi
+    cp -r pre-commit-golang ${gitRepositoryPath}/.git/hooks/pre-commit
+    chmod +x ${gitRepositoryPath}/.git/hooks/pre-commit
     _green "golang pre-commit hook Install Success!\n"
   fi
 }
