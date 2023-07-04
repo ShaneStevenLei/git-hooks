@@ -1,8 +1,21 @@
 # git-hooks
 Git hooks
 
-## install
+## install dependencies
 
 ```shell
-curl -kSL https://raw.githubusercontent.com/ShaneStevenLei/git-hooks/main/install.sh | sh
+npm install -g commitizen cz-conventional-changelog
+
+```
+
+## config
+
+```shell
+echo '{ "path": "cz-conventional-changelog" }' > ~/.czrc
+```
+
+## install hooks
+
+```shell
+./install.sh
 ```

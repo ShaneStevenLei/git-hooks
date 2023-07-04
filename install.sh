@@ -47,7 +47,7 @@ main() {
     mv .git/hooks/commit-msg .git/hooks/commit-msg.bak.${time};
   fi
 
-  curl https://raw.githubusercontent.com/ShaneStevenLei/git-hooks/main/commit-msg -o .git/hooks/commit-msg
+  cp -r commit-msg .git/hooks/commit-msg
   chmod +x .git/hooks/commit-msg
   _green "commit-msg hook Install Success!\n"
 
@@ -66,7 +66,7 @@ main() {
   done
 
   if [[ ${isGolangProgram} -eq 1 ]]; then
-    curl https://raw.githubusercontent.com/ShaneStevenLei/git-hooks/main/pre-commit-golang -o .git/hooks/pre-commit
+    cp -r pre-commit-golang .git/hooks/pre-commit
     chmod +x .git/hooks/pre-commit
     _green "golang pre-commit hook Install Success!\n"
   fi
